@@ -1,0 +1,39 @@
+{
+  "name": "react-blog-7",
+  "version": "1.0.0",
+  "description": "A simple react blog with webpack and babel.",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "npm run dev",
+    "publish": "NODE_ENV=production node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+http://git.imweb.io/reactlearn/react-learn-code.git"
+  },
+  "author": "iconie",
+  "license": "MIT",
+  "homepage": "http://git.imweb.io/reactlearn/react-learn-code.git",
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "@zeit/next-less": "^1.0.1",
+    "axios": "^0.18.0",
+    "classnames": "^2.2.6",
+    "koa": "^2.0.1",
+    "koa-router": "^7.1.0",
+    "less": "^3.9.0",
+    "moment": "^2.22.2",
+    "next": "^7.0.2",
+    "node-fetch": "^2.2.0",
+    "query-string": "^6.1.0",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-markdown": "^3.4.1",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0"
+  }
+}
