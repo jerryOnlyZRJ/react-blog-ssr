@@ -15,14 +15,16 @@ class ArchiveList extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`${preURL}/list`).then((response) => {
-            console.log('list:', response.data);
-            this.setState({
-                list: response.data
+        if (!this.state.list.toString()) {
+            axios.get(`${preURL}/list`).then((response) => {
+                console.log('list:', response.data);
+                this.setState({
+                    list: response.data
+                })
+            }, (error) => {
+                alert('拉取数据失败，请配置后端博客服务！')
             })
-        }, (error) => {
-            alert('拉取数据失败，请配置后端博客服务！')
-        })
+        }
     }
 
     render() {
@@ -36,11 +38,9 @@ class ArchiveList extends React.Component {
             let year = momentDate.format('YYYY');
             years.add(year);
             if (yearsMap.has(year)) {
-                console.log("yearsMap.get(year):", yearsMap.get(year), yearsMap.has(year), year, yearsMap)
                 yearsMap.set(year, yearsMap.get(year).concat([value]))
             } else {
                 yearsMap.set(year, [value]);
-                console.log('set:', yearsMap)
             }
         }
 

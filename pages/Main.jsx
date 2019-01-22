@@ -17,10 +17,6 @@ export default class Main extends React.Component{
         }
     }
 
-    componentDidMount(){
-
-    }
-
     render(){
         return(
             <Layout activeTag={'首页'}>

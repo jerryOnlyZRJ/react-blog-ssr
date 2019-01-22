@@ -4,27 +4,29 @@ import { Link } from "react-router-dom";
 
 import './TagList.less'
 import axios from "axios";
-import {preURL, publicURL} from "../config";
+import { preURL, publicURL } from "../config";
 
-export default class TagList extends React.Component{
-    constructor(props){
+export default class TagList extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            list: []
+            list: props.list || []
         }
     }
 
-    componentDidMount(){
-        axios.get(`${preURL}/list`).then((response) => {
-            console.log('list:', response.data);
-            this.setState({
-                list: response.data
+    componentDidMount() {
+        if (!this.state.list.toString()) {
+            axios.get(`${preURL}/list`).then((response) => {
+                console.log('list:', response.data);
+                this.setState({
+                    list: response.data
+                })
+            }, (error) => {
+                alert('拉取数据失败，请配置后端博客服务！')
             })
-        },(error) => {
-            alert('拉取数据失败，请配置后端博客服务！')
-        })
+        }
     }
-    render(){
+    render() {
 
         let tags = new Map();
         let tagKeys = new Set();
@@ -32,9 +34,9 @@ export default class TagList extends React.Component{
         let list = this.state.list;
 
         for (let value of list) {
-            for(let tag of value.tags){
+            for (let tag of value.tags) {
                 tagKeys.add(tag)
-                if(tags.has(tag)){
+                if (tags.has(tag)) {
                     tags.set(tag, tags.get(tag).concat([value]))
                 } else {
                     tags.set(tag, [value])
