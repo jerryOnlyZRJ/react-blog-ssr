@@ -3,28 +3,29 @@ import moment from 'moment'
 
 import "./ArchiveList.less"
 import axios from "axios";
-import {preURL, publicURL} from "../config";
+import { preURL, publicURL } from "../config";
 
-class ArchiveList extends React.Component{
-    constructor(props){
+class ArchiveList extends React.Component {
+
+    constructor(props) {
         super(props);
         this.state = {
-            list:[],
+            list: props.list || []
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         axios.get(`${preURL}/list`).then((response) => {
             console.log('list:', response.data);
             this.setState({
                 list: response.data
             })
-        },(error) => {
+        }, (error) => {
             alert('拉取数据失败，请配置后端博客服务！')
         })
     }
 
-    render(){
+    render() {
         let years = new Set();
         let yearsMap = new Map();
 
@@ -34,16 +35,16 @@ class ArchiveList extends React.Component{
             let momentDate = moment(value.date);
             let year = momentDate.format('YYYY');
             years.add(year);
-            if(yearsMap.has(year)){
-                console.log("yearsMap.get(year):",yearsMap.get(year),yearsMap.has(year),year,yearsMap)
+            if (yearsMap.has(year)) {
+                console.log("yearsMap.get(year):", yearsMap.get(year), yearsMap.has(year), year, yearsMap)
                 yearsMap.set(year, yearsMap.get(year).concat([value]))
             } else {
-                yearsMap.set(year,[value]);
+                yearsMap.set(year, [value]);
                 console.log('set:', yearsMap)
             }
         }
 
-        return(<div className={"archives-container"}>
+        return (<div className={"archives-container"}>
             {Array.from(years).sort().map((year, yearIndex) =>
                 <div className={"one-tag-list"} key={yearIndex}>
 

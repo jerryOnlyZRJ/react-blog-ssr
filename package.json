@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "A simple react blog with webpack and babel.",
   "scripts": {
-    "dev": "node server.js",
     "build": "next build",
-    "start": "npm run dev",
+    "start": "node server.js",
     "publish": "NODE_ENV=production node server.js"
   },
   "repository": {

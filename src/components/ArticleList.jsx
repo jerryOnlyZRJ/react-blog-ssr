@@ -6,34 +6,35 @@ import ClassNames from 'classnames'
 import './ArticleList.less'
 
 export default class ArticleList extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
-            begin:0,
-            list: props.plist || [],
+            begin: 0,
+            list: props.list || [],
             pageSize: 8,
         }
     }
 
-    componentDidMount(){
-        axios.get(`${preURL}/list`).then((response) => {
-            console.log('list:', response.data);
-            this.setState({
-                list: response.data
+    componentDidMount() {
+        if (!this.state.list.toString()) {
+            axios.get(`${preURL}/list`).then((response) => {
+                console.log('list:', response.data);
+                this.setState({
+                    list: response.data
+                })
+            }, (error) => {
+                alert('拉取数据失败，请配置后端博客服务！')
             })
-        },(error) => {
-            alert('拉取数据失败，请配置后端博客服务！')
-        })
+        }
     }
-    
-    nextPage(){
+
+    nextPage() {
         this.setState({
             begin: this.state.begin + this.state.pageSize
         })
     }
 
-    lastPage(){
+    lastPage() {
         this.setState({
             begin: this.state.begin - this.state.pageSize
         })
@@ -66,11 +67,11 @@ export default class ArticleList extends React.Component {
                 </div>
 
                 <ul className={'pager'} >
-                    <li className={ClassNames("previous",{'hidden': this.state.begin === 0})} onClick={() => {this.lastPage()}}>
+                    <li className={ClassNames("previous", { 'hidden': this.state.begin === 0 })} onClick={() => { this.lastPage() }}>
                         <a>&larr; Newer Posts</a>
                     </li>
 
-                    <li  className={ClassNames("next",{'hidden': this.state.begin + this.state.pageSize >= this.state.list.length })}  onClick={() => {this.nextPage()}}>
+                    <li className={ClassNames("next", { 'hidden': this.state.begin + this.state.pageSize >= this.state.list.length })} onClick={() => { this.nextPage() }}>
                         <a>Older Posts &rarr;</a>
                     </li>
                 </ul>

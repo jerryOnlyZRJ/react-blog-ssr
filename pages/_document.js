@@ -5,9 +5,7 @@ export default class MyDocument extends Document {
         return (
             <html>
             <Head>
-                <title>my-react-blog</title>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <link rel="stylesheet" href="/_next/static/style.css" />
             </Head>
             <body>
             <Main />
