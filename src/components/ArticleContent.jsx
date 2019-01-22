@@ -2,34 +2,35 @@ import React from 'react'
 const queryString = require('query-string');
 import "./ArticleContent.less"
 import axios from "axios/index";
-import {preURL, publicURL} from "../config";
+import { preURL, publicURL } from "../config";
 import moment from "moment/moment";
 const ReactMarkdown = require('react-markdown')
 
-export default class ArticleContent extends React.Component{
-    constructor(props){
+export default class ArticleContent extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            post:{}
+            post: props.post || {}
         }
     }
 
-    componentDidMount(){
-        const query = queryString.parse(location.search);
-        console.log('pathName:', query);
-
-        axios.get(`${preURL}/post?pathName=${query.pathName}`).then((response) => {
-            console.log(response.data)
-            this.setState({
-                post:response.data
+    componentDidMount() {
+        if (!this.props.post) {
+            const query = queryString.parse(location.search);
+            console.log('pathName:', query);
+            axios.get(`${preURL}/post?pathName=${query.pathName}`).then((response) => {
+                console.log(response.data)
+                this.setState({
+                    post: response.data
+                })
+            }, (error) => {
+                alert('拉取数据失败，请配置后端博客服务！')
             })
-        },(error) => {
-            alert('拉取数据失败，请配置后端博客服务！')
-        })
+        }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className={'post-container'}>
 
                 <div className={'post-title'}>
